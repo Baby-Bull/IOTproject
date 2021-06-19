@@ -1,0 +1,92 @@
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+console.log(getCookie("userId")); 
+
+	var requestOptions = {
+		method: 'POST',
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify({userId:getCookie("userId")})
+	};
+
+  fetch("http://localhost:3000/user/getUserInfo",requestOptions)
+  .then((response)=>{
+      return response.json();
+  })
+  .then((data) =>{
+      document.getElementById("name_user").innerHTML = data.user.username;
+      document.getElementById("device_count").innerHTML = data.user.devices.length;
+      var htmls = data.user.devices.map((device,i,data) =>{
+        return `<li >
+        <div class="item" >
+          <i class="fa fa-cogs" aria-hidden="true"></i>
+          <p>Thiet bi so ${i+1}</p>
+          <i id="but_modal" class="fa fa-list" aria-hidden="true"></i>
+        </div>
+      </li>`
+      })
+      document.getElementById("list_devices").innerHTML= htmls.join("");
+      return data.user.devices;
+  })
+  .then((devices)=>{
+    var btn = document.querySelectorAll("#but_modal");
+    console.log(btn);
+    for(let i =0; i<btn.length; i++){
+      btn[i].onclick = ()=>{
+        document.getElementById("myModal").innerHTML = `        
+              <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>Thong tin thiet bi</p>
+              <p>ten thiet bi :</p> <strong>${devices[i].deviceName}</strong>
+              <p>vi tri </p> <strong>${devices[i].location}</strong>
+              <p>thoi gian tao: </p><strong>${devices[i].added}</strong>
+              <p>trang thai hoat dong</p> <strong>${devices[i].connectState}</strong>
+              <div id="select_item" class="btn btn-primary">Select</div>
+            </div>`;
+
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("select_item").onclick = () =>{
+              document.cookie = "deviceId="+ devices[i].deviceId;
+              location.href = "http://localhost:3000/temprature.html";
+            }
+      }
+    }
+  })
+
+
+
+
+
+
+var modal = document.getElementById("myModal");
+var form_add = document.getElementById("form");
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal || event.target == form_add) {
+    modal.style.display = "none";
+    form_add.style.display = "none";
+
+  }
+}
+
+document.getElementById("but_form").onclick = () =>{
+  console.log("IN but_modal1")
+  form_add.style.display= "block";
+}
