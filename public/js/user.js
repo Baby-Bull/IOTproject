@@ -42,7 +42,6 @@ console.log(getCookie("userId"));
   })
   .then((devices)=>{
     var btn = document.querySelectorAll("#but_modal");
-    console.log(btn);
     for(let i =0; i<btn.length; i++){
       btn[i].onclick = ()=>{
         document.getElementById("myModal").innerHTML = `        
@@ -71,7 +70,7 @@ console.log(getCookie("userId"));
 
 
 var modal = document.getElementById("myModal");
-var form_add = document.getElementById("form");
+var form2 = document.getElementById("form");
 var span = document.getElementsByClassName("close")[0];
 
 span.onclick = function() {
@@ -79,14 +78,40 @@ span.onclick = function() {
 }
 
 window.onclick = function(event) {
-  if (event.target == modal || event.target == form_add) {
+  if (event.target == modal || event.target == form2) {
     modal.style.display = "none";
-    form_add.style.display = "none";
+    form2.style.display = "none";
 
   }
 }
 
 document.getElementById("but_form").onclick = () =>{
   console.log("IN but_modal1")
-  form_add.style.display= "block";
+  form2.style.display= "block";
 }
+
+var create_form = document.getElementById("but_create");
+  create_form.addEventListener('click', e =>{
+    e.preventDefault();
+    var device_name = document.getElementById("device_name").value;
+    var device_location = document.getElementById("device_location").value;
+
+    var request_create = {
+      method : 'POST',
+      headers : {'content-type':'application/json'},
+      body: JSON.stringify({
+        userId:getCookie("userId"),
+        deviceName:device_name,
+        location: device_location
+      })
+    };
+    fetch("http://localhost:3000/device/createDevice",request_create)
+    .then((response) =>{
+      return response.json();
+    })
+    .then((items)=>{
+      alert("ban da them thiet bi thanh cong!!!");
+      location.href="http://localhost:3000/user.html";
+    })
+
+  })

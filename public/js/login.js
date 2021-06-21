@@ -9,7 +9,10 @@ login.addEventListener("submit", e =>{
 	var requestOptions = {
 		method: 'POST',
 		headers: {'content-type': 'application/json'},
-		body: JSON.stringify({username: username, password: password})
+		body: JSON.stringify({
+			username: username, 
+			password: password
+		})
 	};
 	fetch("http://localhost:3000/auth/login", requestOptions)
 	.then((response)=> {

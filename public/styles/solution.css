@@ -1,12 +1,19 @@
-button {
-  background-color: #04AA6D;
+button#but_stop {
+  background-color: #ff2a2a;
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
+  padding: 10px 10px;
+  margin: 15px 0;
   cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
+  width: 30%;
+  opacity: 1;
+  border: 2px blue solid;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+button#but_stop:hover {
+    background: #ea9fc9;
 }
 
 button:hover {
@@ -16,7 +23,15 @@ button:hover {
 /* Float cancel and delete buttons and add an equal width */
 .cancelbtn, .deletebtn {
   float: left;
-  width: 50%;
+  width: 30%;
+  margin: 60px 30px 0px 79px;
+  height: 50px;
+  cursor: pointer;
+}
+
+button.cancelbtn:hover, button.deletebtn:hover {
+    margin: 58px 30px 0 79px!important;
+    box-shadow: 0px 3px 10px 1px black;
 }
 
 /* Add a color to the cancel button */
@@ -46,7 +61,7 @@ button:hover {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
+  background-color: #474e5dad;
   padding-top: 50px;
 }
 
@@ -55,7 +70,8 @@ button:hover {
   background-color: #fefefe;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%!important; /* Could be more or less, depending on screen size */
+  height: 250px;
 }
 
 /* Style the horizontal ruler */
